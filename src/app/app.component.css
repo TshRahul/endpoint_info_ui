@@ -1,0 +1,13 @@
+
+
+  #hover_hand {
+  background:none;
+  border:none;
+  color:#FFF;
+  font-family:Verdana, Geneva, sans-serif;
+  cursor:pointer;
+}
+
+.mat-button-focus-overlay {
+    background-color: rgba(0,0,0,.12);
+ }

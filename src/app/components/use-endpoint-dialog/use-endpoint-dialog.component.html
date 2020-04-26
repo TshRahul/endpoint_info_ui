@@ -1,0 +1,32 @@
+<h1 mat-dialog-title > Use Endpoint: {{enpoint_name}}</h1>
+
+<div mat-dialog-content style="height: 250">
+    <form [formGroup] = "useEndpointForm" class="example-form" (ngSubmit)="useEndpoint()">
+    <mat-form-field class="example-form" [formGroup] = "useEndpointForm">
+      <mat-label>User Name</mat-label>
+      <input matInput formControlName="user" />
+      <mat-error *ngIf="useEndpointForm.get('user').errors?.required">Username is required</mat-error>
+    </mat-form-field>
+    <mat-form-field class="example-form" [formGroup] = "useEndpointForm">
+        <mat-label>Using For</mat-label>
+        <input matInput formControlName="using_for" />
+        <mat-error *ngIf="useEndpointForm.get('using_for').errors?.required">Using for is required</mat-error>
+      </mat-form-field>
+      <!-- <mat-form-field class="example-form" [formGroup] = "useEndpointForm">
+        <mat-label>Environment Name</mat-label>
+        <input matInput formControlName="used_environment" />
+        <mat-error *ngIf="useEndpointForm.get('used_environment').errors?.required">Environmane name is required</mat-error>
+        <mat-error *ngIf="useEndpointForm.get('used_environment').invalid && useEndpointForm.get('used_environment').errors?.validEnv">The environment can only be qa-it/qa-master.</mat-error>
+      </mat-form-field> -->
+      <br />
+      <mat-radio-group class="example-radio-group" formControlName="used_environment">
+        <mat-radio-button class="example-radio-button" *ngFor="let env of envs" [value]="env">{{env}}</mat-radio-button>
+      </mat-radio-group>
+
+  <div mat-dialog-actions>
+    <button mat-button type="button" [mat-dialog-close] color="primary">Close</button> 
+    <button mat-button type = "submit" [mat-dialog-close] [disabled]="!useEndpointForm.valid" color="primary">Submit</button>
+  </div>
+  
+  </form>
+  </div>

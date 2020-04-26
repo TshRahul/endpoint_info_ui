@@ -1,0 +1,44 @@
+<mat-toolbar color="primary" class="docs-navbar-header">
+    <span>Endpoint Information</span>
+    <span class="example-spacer"></span>
+    <button mat-button (click)="addEndpoint()">Add Endpoint</button>
+  </mat-toolbar>
+
+<div class="example-container">
+    <mat-card class = "header-card"> <h1 class="mat-display-1">QA Master</h1></mat-card>
+    <br />
+    <div
+      cdkDropList
+      #qaMasterList="cdkDropList"
+      [cdkDropListData]="masterEndpoints"
+      [cdkDropListConnectedTo]="[qaItList]"
+      class="example-list"
+      (cdkDropListDropped)="drop($event, 'qaMaster')">
+      <div class="example-box" *ngFor="let endpoint of masterEndpoints" [style.background-color]="getBackgroundColor(endpoint.is_occupied)" cdkDrag>
+        <div *ngIf="!endpoint.is_occupied; else elseBlock"><span class="hand_cursor" matTooltip="Endpoint is free">
+          <a mat-button (click)="useEndpoint(endpoint.endpoint_name, endpoint.endpoint_id)">{{endpoint.endpoint_name}}</a></span></div>
+          <ng-template #elseBlock><span class="hand_cursor" matTooltip="User By: {{endpoint.occupied_by}}, User For: {{endpoint.occupied_for}}">
+            <a mat-button (click)="releaseEndpoint(endpoint.endpoint_name, endpoint.endpoint_id)">{{endpoint.endpoint_name}}</a></span>
+          </ng-template>
+    </div>
+    </div>
+  </div>
+  
+  <div class="example-container">
+    <mat-card class = "header-card"> <h1 class="mat-display-1">QA It</h1></mat-card>
+    <br />  
+    <div
+      cdkDropList
+      #qaItList="cdkDropList"
+      [cdkDropListData]="itEndpoints"
+      [cdkDropListConnectedTo]="[qaMasterList]"
+      class="example-list"
+      (cdkDropListDropped)="drop($event, 'qaIt')">
+      <div class="example-box" *ngFor="let endpoint of itEndpoints" [style.background-color]="getBackgroundColor(endpoint.is_occupied)" cdkDrag>
+        <div *ngIf="!endpoint.is_occupied; else elseBlock"><span class="hand_cursor" matTooltip="Endpoint is free">
+          <a mat-button (click)="useEndpoint(endpoint.endpoint_name, endpoint.endpoint_id)">{{endpoint.endpoint_name}}</a></span></div>
+          <ng-template #elseBlock><span class="hand_cursor" matTooltip="User By: {{endpoint.occupied_by}}, User For: {{endpoint.occupied_for}}">
+            <a class="used_epName" mat-button (click)="releaseEndpoint(endpoint.endpoint_name, endpoint.endpoint_id)">{{endpoint.endpoint_name}}</a></span>
+          </ng-template>
+           </div>
+  </div>

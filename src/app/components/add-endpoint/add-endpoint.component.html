@@ -1,0 +1,29 @@
+<h1 mat-dialog-title> Add Endpoint</h1>
+<div mat-dialog-content style="height: 200px">
+  <form [formGroup] = "addEndpointForm" class="example-form" (ngSubmit)="addEndpoint()">
+  <mat-form-field class="example-form" [formGroup] = "addEndpointForm">
+    <mat-label>Endpoint Name</mat-label>
+    <input matInput formControlName="endpoint_name" />
+    <mat-error *ngIf="addEndpointForm.get('endpoint_name').errors?.required">Name is required</mat-error>
+  </mat-form-field>
+  <!-- <mat-form-field class="example-form" [formGroup] = "addEndpointForm">
+    <mat-label>Environment Name</mat-label>
+    <input matInput formControlName="environment" />
+    <mat-error *ngIf="addEndpointForm.get('environment').errors?.required">Environment is required.</mat-error>
+    <mat-error *ngIf="addEndpointForm.get('environment').invalid && addEndpointForm.get('environment').errors?.validEnv">The environment can only be qa-it/qa-master.</mat-error>
+  </mat-form-field> -->
+
+  <br />
+  <mat-radio-group class="example-radio-group" formControlName="environment">
+    <mat-radio-button class="example-radio-button" *ngFor="let env of envs" [value]="env">{{env}}</mat-radio-button>
+  </mat-radio-group>
+
+  <br />
+
+<div mat-dialog-actions>
+  <button mat-button type="button" [mat-dialog-close] color="primary">Close</button> 
+  <button mat-button type = "submit" [mat-dialog-close] [disabled]="!addEndpointForm.valid" color="primary">Submit</button>
+</div>
+
+</form>
+</div>

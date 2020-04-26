@@ -11,7 +11,10 @@ import { AddEndpointComponent } from './components/add-endpoint/add-endpoint.com
 import { ReactiveFormsModule  } from '@angular/forms';
 import { UseEndpointDialogComponent } from './components/use-endpoint-dialog/use-endpoint-dialog.component';
 import { ReleaseEndpointDialogComponent } from './components/release-endpoint-dialog/release-endpoint-dialog.component';
-import { EndpointDataComponent } from './components/endpoint-data/endpoint-data.component'
+import { EndpointDataComponent } from './components/endpoint-data/endpoint-data.component';
+import { MarkEndpointBadComponent } from './components/mark-endpoint-bad/mark-endpoint-bad.component';
+import { FormsModule } from '@angular/forms';
+import { MarkEndpointGoodComponent } from './components/mark-endpoint-good/mark-endpoint-good.component';
 
 
 @NgModule({
@@ -21,7 +24,9 @@ import { EndpointDataComponent } from './components/endpoint-data/endpoint-data.
     AddEndpointComponent,
     UseEndpointDialogComponent,
     ReleaseEndpointDialogComponent,
-    EndpointDataComponent
+    EndpointDataComponent,
+    MarkEndpointBadComponent,
+    MarkEndpointGoodComponent
   ],
   imports: [
     BrowserModule,
@@ -29,10 +34,12 @@ import { EndpointDataComponent } from './components/endpoint-data/endpoint-data.
     MaterialModule,
     HttpClientModule,
     CommonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [AddEndpointComponent, UseEndpointDialogComponent, ReleaseEndpointDialogComponent],
+  entryComponents: [AddEndpointComponent, UseEndpointDialogComponent, ReleaseEndpointDialogComponent, 
+    MarkEndpointBadComponent, MarkEndpointGoodComponent],
 })
 export class AppModule { }

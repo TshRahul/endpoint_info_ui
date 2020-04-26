@@ -7,5 +7,6 @@ export class Endpoint {
     occupied_for : string;
     is_deleted : boolean;
     environment : string;
+    bad : string;
 
 }

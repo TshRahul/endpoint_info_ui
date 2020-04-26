@@ -10,6 +10,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import {MatCardModule} from '@angular/material/card';
 import {MatRadioModule, MAT_RADIO_DEFAULT_OPTIONS} from '@angular/material/radio';
+import {MatSelectModule} from '@angular/material/select';
 
 @NgModule({
     imports: [
@@ -24,7 +25,8 @@ import {MatRadioModule, MAT_RADIO_DEFAULT_OPTIONS} from '@angular/material/radio
     MatDialogModule,
     DragDropModule,
     MatCardModule,
-    MatRadioModule
+    MatRadioModule,
+    MatSelectModule
     ],
     exports: [
     BrowserAnimationsModule,
@@ -38,7 +40,8 @@ import {MatRadioModule, MAT_RADIO_DEFAULT_OPTIONS} from '@angular/material/radio
     MatDialogModule,
     DragDropModule,
     MatCardModule,
-    MatRadioModule
+    MatRadioModule,
+    MatSelectModule
     ],
     providers: [{
         provide: MAT_RADIO_DEFAULT_OPTIONS,

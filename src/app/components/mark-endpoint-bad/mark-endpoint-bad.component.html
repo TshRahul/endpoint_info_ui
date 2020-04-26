@@ -1,0 +1,17 @@
+<h4>Mark endpoint bad</h4>
+<form class="example-form" [formGroup] = "endpointForm" (ngSubmit)="updateEndpointIsBad()">
+
+<mat-form-field>
+  <mat-label>Endpoints</mat-label>
+  <mat-select formControlName="endpoint_id">
+    <mat-option *ngFor="let endpoint of filteredEps" [value]="endpoint.endpoint_id">{{endpoint.endpoint_name}}
+    </mat-option>
+  </mat-select>
+  <mat-error *ngIf="endpointForm.get('endpoint_id').errors?.required">Endpoint ame is required</mat-error>
+</mat-form-field>
+<div mat-dialog-actions>
+  <button mat-button type="button" [mat-dialog-close] color="primary">Cancel</button> 
+  <button mat-button type = "submit" [mat-dialog-close] [disabled]="!endpointForm.valid" color="primary">Submit</button>
+</div>
+
+</form>

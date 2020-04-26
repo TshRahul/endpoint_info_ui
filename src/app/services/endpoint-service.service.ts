@@ -27,4 +27,8 @@ export class EndpointServiceService {
     return this.httpClient.patch("http://localhost:9091/api/endpoint/updateEnvironment/" + id, env);
   }
 
+  updateIsBad(id : number, isBad : boolean) : Observable<any> {
+    return this.httpClient.patch("http://localhost:9091/api/endpoint/isBad/" + id, isBad);
+  }
+
 }

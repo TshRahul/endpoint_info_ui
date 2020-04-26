@@ -14,6 +14,9 @@
   </mat-form-field> -->
 
   <br />
+  <mat-label>Choose Environment: </mat-label>
+  <br />
+  <br />
   <mat-radio-group class="example-radio-group" formControlName="environment">
     <mat-radio-button class="example-radio-button" *ngFor="let env of envs" [value]="env">{{env}}</mat-radio-button>
   </mat-radio-group>
@@ -21,7 +24,7 @@
   <br />
 
 <div mat-dialog-actions>
-  <button mat-button type="button" [mat-dialog-close] color="primary">Close</button> 
+  <button mat-button type="button" [mat-dialog-close] color="primary">Cancel</button> 
   <button mat-button type = "submit" [mat-dialog-close] [disabled]="!addEndpointForm.valid" color="primary">Submit</button>
 </div>
 

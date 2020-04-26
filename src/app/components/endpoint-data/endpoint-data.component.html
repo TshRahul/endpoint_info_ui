@@ -2,6 +2,7 @@
     <span>Endpoint Information</span>
     <span class="example-spacer"></span>
     <button mat-button (click)="addEndpoint()">Add Endpoint</button>
+    <button mat-button (click)="updateEndpointCondition()">Mark Endpoint Bad</button>
   </mat-toolbar>
 
 <div class="example-container">
@@ -14,12 +15,19 @@
       [cdkDropListConnectedTo]="[qaItList]"
       class="example-list"
       (cdkDropListDropped)="drop($event, 'qaMaster')">
-      <div class="example-box" *ngFor="let endpoint of masterEndpoints" [style.background-color]="getBackgroundColor(endpoint.is_occupied)" cdkDrag>
-        <div *ngIf="!endpoint.is_occupied; else elseBlock"><span class="hand_cursor" matTooltip="Endpoint is free">
-          <a mat-button (click)="useEndpoint(endpoint.endpoint_name, endpoint.endpoint_id)">{{endpoint.endpoint_name}}</a></span></div>
-          <ng-template #elseBlock><span class="hand_cursor" matTooltip="User By: {{endpoint.occupied_by}}, User For: {{endpoint.occupied_for}}">
-            <a mat-button (click)="releaseEndpoint(endpoint.endpoint_name, endpoint.endpoint_id)">{{endpoint.endpoint_name}}</a></span>
+      <div class="example-box" *ngFor="let endpoint of masterEndpoints" [ngStyle]="getBackgroundColor(endpoint.bad, endpoint.is_occupied)" cdkDrag>
+        <div *ngIf="endpoint.bad; else elseBlock1">
+          <span class="hand_cursor" matTooltip="Endpoint is bad">
+            <a class="endpoint-opers" mat-button (click)="markEndpointGood(endpoint.endpoint_name, endpoint.endpoint_id)">{{endpoint.endpoint_name}}</a>
+          </span>
+        </div>
+        <ng-template #elseBlock1>
+        <div *ngIf="!endpoint.is_occupied; else elseBlock2"><span class="hand_cursor" matTooltip="Endpoint is free">
+          <a class="endpoint-opers" mat-button (click)="useEndpoint(endpoint.endpoint_name, endpoint.endpoint_id)">{{endpoint.endpoint_name}}</a></span></div>
+          <ng-template #elseBlock2><span class="hand_cursor" matTooltip="User By: {{endpoint.occupied_by}}, User For: {{endpoint.occupied_for}}">
+            <a class="endpoint-opers" mat-button (click)="releaseEndpoint(endpoint.endpoint_name, endpoint.endpoint_id)">{{endpoint.endpoint_name}}</a></span>
           </ng-template>
+        </ng-template>
     </div>
     </div>
   </div>
@@ -34,11 +42,18 @@
       [cdkDropListConnectedTo]="[qaMasterList]"
       class="example-list"
       (cdkDropListDropped)="drop($event, 'qaIt')">
-      <div class="example-box" *ngFor="let endpoint of itEndpoints" [style.background-color]="getBackgroundColor(endpoint.is_occupied)" cdkDrag>
+      <div class="example-box" *ngFor="let endpoint of itEndpoints" [ngStyle]="getBackgroundColor(endpoint.bad,endpoint.is_occupied)" cdkDrag>
+        <div *ngIf="endpoint.bad; else elseBlock1">
+          <span class="hand_cursor" matTooltip="Endpoint is bad">
+            <a class="endpoint-opers" class="endpoint-opers" mat-button (click)="markEndpointGood(endpoint.endpoint_name, endpoint.endpoint_id)">{{endpoint.endpoint_name}}</a>
+          </span>
+        </div>
+        <ng-template #elseBlock1>
         <div *ngIf="!endpoint.is_occupied; else elseBlock"><span class="hand_cursor" matTooltip="Endpoint is free">
-          <a mat-button (click)="useEndpoint(endpoint.endpoint_name, endpoint.endpoint_id)">{{endpoint.endpoint_name}}</a></span></div>
+          <a class="endpoint-opers" mat-button (click)="useEndpoint(endpoint.endpoint_name, endpoint.endpoint_id)">{{endpoint.endpoint_name}}</a></span></div>
           <ng-template #elseBlock><span class="hand_cursor" matTooltip="User By: {{endpoint.occupied_by}}, User For: {{endpoint.occupied_for}}">
-            <a class="used_epName" mat-button (click)="releaseEndpoint(endpoint.endpoint_name, endpoint.endpoint_id)">{{endpoint.endpoint_name}}</a></span>
+            <a class="endpoint-opers" mat-button (click)="releaseEndpoint(endpoint.endpoint_name, endpoint.endpoint_id)">{{endpoint.endpoint_name}}</a></span>
           </ng-template>
+        </ng-template>
            </div>
   </div>

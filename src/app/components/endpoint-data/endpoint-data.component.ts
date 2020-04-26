@@ -6,6 +6,8 @@ import { AddEndpointComponent } from '../add-endpoint/add-endpoint.component';
 import { MatDialog } from '@angular/material';
 import { UseEndpointDialogComponent } from '../use-endpoint-dialog/use-endpoint-dialog.component';
 import { ReleaseEndpointDialogComponent } from '../release-endpoint-dialog/release-endpoint-dialog.component';
+import { MarkEndpointBadComponent } from '../mark-endpoint-bad/mark-endpoint-bad.component';
+import { MarkEndpointGoodComponent } from '../mark-endpoint-good/mark-endpoint-good.component';
 
 @Component({
   selector: 'app-endpoint-data',
@@ -90,16 +92,51 @@ export class EndpointDataComponent implements OnInit {
   });
   }
 
+  updateEndpointCondition(): void {
+    const dialogRef = this.dialog.open(MarkEndpointBadComponent, {
+     width: '400px'
+   });
 
-  getBackgroundColor(isOccupied : boolean) 
-  {
-
-    if(isOccupied){
-      return '#f44336';
-    }
-  
-    return '#4CAF50';
-
+   dialogRef.afterClosed().subscribe(result => {
+    console.log('The dialog was closed');
+  });
   }
+
+  markEndpointGood(endpoint_name : string, endpoint_id : number): void {
+    const dialogRef = this.dialog.open(MarkEndpointGoodComponent, {
+     width: '350px',
+     data: {endpoint_name: endpoint_name, endpoint_id : endpoint_id}
+   });
+
+   dialogRef.afterClosed().subscribe(result => {
+    console.log('The dialog was closed');
+  });
+  }
+
+
+  getBackgroundColor(isBad : boolean, isOccupied : boolean) 
+  {
+    let myStyles;
+     if(isBad){
+      myStyles = {
+        'background-color': '#FF9800',
+        //'background-image': 'linear-gradient(316deg, #f42b03 0%, #ffbe0b 74%)'
+      }
+     }else {
+    if(isOccupied){
+      myStyles = {
+        'background-color': '#F44336',
+        'background-image': 'linear-gradient(315deg, #ff7878 0%, #ff0000 74%)'
+      }
+    } else {
+      myStyles = {
+        'background-color': '#f8ef42',
+        'background-image': 'linear-gradient(315deg, #f8ef42 0%, #0fd64f 74%)'
+      }
+    }
+  }
+  return myStyles;
+  }
+  
 
 }

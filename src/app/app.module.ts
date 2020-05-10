@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { EndpointInfoComponent } from './endpoint-info/endpoint-info.component';
 import {MaterialModule} from './material_module'
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { AddEndpointComponent } from './components/add-endpoint/add-endpoint.component';
 import { ReactiveFormsModule  } from '@angular/forms';
@@ -15,6 +15,14 @@ import { EndpointDataComponent } from './components/endpoint-data/endpoint-data.
 import { MarkEndpointBadComponent } from './components/mark-endpoint-bad/mark-endpoint-bad.component';
 import { FormsModule } from '@angular/forms';
 import { MarkEndpointGoodComponent } from './components/mark-endpoint-good/mark-endpoint-good.component';
+import { RegisterComponent } from './components/register/register.component';
+import { LoginComponent } from './components/login/login.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { CookieService } from 'ngx-cookie-service';
+import { AuthInterceptor } from './classes/AuthInterceptor';
+import { StorageServiceModule } from 'ngx-webstorage-service';
+import { LocalStorageService } from './services/local-storage.service';
+import { SnakeBarComponent } from './components/snake-bar/snake-bar.component';
 
 
 @NgModule({
@@ -26,7 +34,10 @@ import { MarkEndpointGoodComponent } from './components/mark-endpoint-good/mark-
     ReleaseEndpointDialogComponent,
     EndpointDataComponent,
     MarkEndpointBadComponent,
-    MarkEndpointGoodComponent
+    MarkEndpointGoodComponent,
+    RegisterComponent,
+    LoginComponent,
+    SnakeBarComponent
   ],
   imports: [
     BrowserModule,
@@ -35,11 +46,17 @@ import { MarkEndpointGoodComponent } from './components/mark-endpoint-good/mark-
     HttpClientModule,
     CommonModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    FlexLayoutModule,
+    StorageServiceModule
   ],
-  providers: [],
+  providers: [{
+    provide : HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi   : true
+  }],
   bootstrap: [AppComponent],
   entryComponents: [AddEndpointComponent, UseEndpointDialogComponent, ReleaseEndpointDialogComponent, 
-    MarkEndpointBadComponent, MarkEndpointGoodComponent],
+    MarkEndpointBadComponent, MarkEndpointGoodComponent, CookieService, LocalStorageService],
 })
 export class AppModule { }

@@ -3,11 +3,14 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/dr
 import { EndpointServiceService } from 'src/app/services/endpoint-service.service';
 import { Endpoint } from 'src/app/classes/endpoint';
 import { AddEndpointComponent } from '../add-endpoint/add-endpoint.component';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { UseEndpointDialogComponent } from '../use-endpoint-dialog/use-endpoint-dialog.component';
 import { ReleaseEndpointDialogComponent } from '../release-endpoint-dialog/release-endpoint-dialog.component';
 import { MarkEndpointBadComponent } from '../mark-endpoint-bad/mark-endpoint-bad.component';
 import { MarkEndpointGoodComponent } from '../mark-endpoint-good/mark-endpoint-good.component';
+import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
 
 @Component({
   selector: 'app-endpoint-data',
@@ -16,7 +19,9 @@ import { MarkEndpointGoodComponent } from '../mark-endpoint-good/mark-endpoint-g
 })
 export class EndpointDataComponent implements OnInit {
 
-  constructor(private endpointService : EndpointServiceService, public dialog: MatDialog) { }
+  constructor(private endpointService : EndpointServiceService, public dialog: MatDialog, private router: Router,
+    private cookie : CookieService,
+    private localStorageService: LocalStorageService) { }
   endpoints : Endpoint[];
   masterEndpoints : Endpoint[] = [];
   itEndpoints : Endpoint[] = []; 
@@ -136,6 +141,13 @@ export class EndpointDataComponent implements OnInit {
     }
   }
   return myStyles;
+  }
+
+  logout(){
+    this.cookie.deleteAll();
+    this.localStorageService.removeromStroage("username");
+    this.localStorageService.removeromStroage("email");
+    this.router.navigateByUrl('login');
   }
   
 

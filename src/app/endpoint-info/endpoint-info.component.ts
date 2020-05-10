@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { MatTableDataSource, MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
+import { MatTableDataSource } from '@angular/material/table';
 import { Endpoint } from '../classes/endpoint';
 import { EndpointServiceService } from '../services/endpoint-service.service';
 import { AddEndpointComponent } from '../components/add-endpoint/add-endpoint.component';

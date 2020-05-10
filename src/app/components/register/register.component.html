@@ -1,0 +1,91 @@
+<body>
+    <!-- Toolbar -->
+    <mat-toolbar color="primary" class="app-header" >
+      <span class="nav-tool-items">
+        <a mat-button routerLink="login" routerLinkActive="active">Log in</a>
+        <a mat-button mat-raised-button routerLink="register" routerLinkActive="active">Register</a>
+      </span>
+    </mat-toolbar>
+    
+  <div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
+      <mat-card class="box">
+        <mat-card-header>
+          <mat-card-title>Register</mat-card-title>
+        </mat-card-header>
+    
+        <form class="example-form" [formGroup] = "registrationForm" (ngSubmit)="createUser()">
+    
+          <mat-card-content>
+            <mat-form-field class="example-full-width">
+              <input formControlName="username" matInput placeholder="Username" [class.is-invalid]="registrationForm.get('username').invalid && 
+              registrationForm.get('username').touched">
+              <!-- <div *ngIf="registrationForm.get('username').invalid && 
+              registrationForm.get('username').touched">  -->
+              <mat-error *ngIf="registrationForm.get('username').errors?.required">Username is required</mat-error>
+              <!-- <small *ngIf="registrationForm.get('username').errors?.required" class="text-danger">Username is required</small> -->
+              <mat-error *ngIf="registrationForm.get('username').errors?.minlength">Username must be atleast 3 charactor long</mat-error>
+              <!-- <small *ngIf="registrationForm.get('username').errors?.minlength" class="text-danger">Username must be atleast 3 charactor long</small> -->
+            <!-- </div> -->
+          </mat-form-field>
+    
+            <mat-form-field class="example-full-width">
+              <input formControlName="Firstname" matInput placeholder="First Name" [class.is-invalid]="registrationForm.get('Firstname').invalid && 
+              registrationForm.get('Firstname').touched">
+              <!-- <div *ngIf="registrationForm.get('firstname').invalid && 
+              registrationForm.get('firstname').touched">  -->
+              <mat-error *ngIf="registrationForm.get('Firstname').errors?.required">First Name is required</mat-error>
+          <!-- </div> -->
+            </mat-form-field>
+    
+            <mat-form-field class="example-full-width">
+              <input matInput  placeholder="Last Name" formControlName="Lastname" [class.is-invalid]="registrationForm.get('Lastname').invalid && 
+              registrationForm.get('Lastname').touched">
+              <!-- <div *ngIf="registrationForm.get('lastname').invalid && 
+              registrationForm.get('lastname').touched">  -->
+              <mat-error *ngIf="registrationForm.get('Lastname').errors?.required">Last Name is required</mat-error>
+              <!-- </div> -->
+            </mat-form-field>
+  
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Email" formControlName="email"
+                     [errorStateMatcher]="matcher">
+              <mat-error *ngIf="registrationForm.get('email').errors?.email && !registrationForm.get('email').errors?.required">
+                Please enter a valid email address
+              </mat-error>
+              <mat-error *ngIf="registrationForm.get('email').errors?.required">
+                Email is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+  
+            <mat-form-field class="example-full-width">
+              <input matInput  placeholder="Password" formControlName="password" [class.is-invalid]="registrationForm.get('password').invalid && 
+              registrationForm.get('password').touched" type="password">
+              <!-- <div *ngIf="registrationForm.get('lastname').invalid && 
+              registrationForm.get('lastname').touched">  -->
+              <mat-error *ngIf="registrationForm.get('password').errors?.required">Password is required</mat-error>
+              <!-- </div> -->
+            </mat-form-field>
+    
+            <mat-form-field class="example-full-width">
+              <mat-label>Choose a role...</mat-label>
+              <mat-select formControlName="roles"  [class.is-invalid]="registrationForm.get('roles').invalid && 
+              registrationForm.get('roles').touched">
+              <!-- <div *ngIf="registrationForm.get('roles').invalid && 
+              registrationForm.get('roles').touched">  -->
+              <mat-error *ngIf="registrationForm.get('roles').errors?.required">Role is required</mat-error>
+              <!-- </div> -->
+                <mat-option [value]="roles" *ngFor="let roles of Roles">{{roles}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+    
+          </mat-card-content>
+    
+          <button mat-stroked-button color="accent" class="btn-block" type="submit" [disabled]="!registrationForm.valid" >Register</button>
+    
+        </form>
+      </mat-card>
+    </div>
+  
+  </body>
+  

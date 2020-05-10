@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { EndpointServiceService } from 'src/app/services/endpoint-service.service';
 import { Endpoint } from 'src/app/classes/endpoint';
 import { FormBuilder, Validators } from '@angular/forms';

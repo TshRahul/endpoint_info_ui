@@ -16,7 +16,6 @@ export class AuthInterceptor implements HttpInterceptor {
         "Content-Type" : 'application/json'
       },
     });
-    console.log(req.headers.get('Authorization'))
     return next.handle(req);
   }
 }

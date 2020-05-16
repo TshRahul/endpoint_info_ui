@@ -7,7 +7,7 @@
     <mat-option *ngFor="let endpoint of filteredEps" [value]="endpoint.endpoint_id">{{endpoint.endpoint_name}}
     </mat-option>
   </mat-select>
-  <mat-error *ngIf="endpointForm.get('endpoint_id').errors?.required">Endpoint ame is required</mat-error>
+  <mat-error *ngIf="endpointForm.get('endpoint_id').errors?.required">Endpoint name is required</mat-error>
 </mat-form-field>
 <div mat-dialog-actions>
   <button mat-button type="button" [mat-dialog-close] color="primary">Cancel</button> 

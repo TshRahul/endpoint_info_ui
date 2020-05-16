@@ -18,8 +18,7 @@ filteredEps : Endpoint[] = [];
   ngOnInit() {
     this.endpointService.getAllEndpoints()
     .subscribe(response => {
-     this.endpoints = response;
-     this.endpoints.forEach(value => {
+      response.body.forEach(value => {
        if(!value.bad && !value.is_deleted && value.environment != null){
          this.filteredEps.push(value);
        }

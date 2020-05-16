@@ -4,6 +4,7 @@ import { FormBuilder, Validators, Validator } from '@angular/forms';
 import { EndpointServiceService } from 'src/app/services/endpoint-service.service';
 import { Endpoint } from 'src/app/classes/endpoint';
 import {allowedEnvironmant } from 'src/app/classes/Vaildators';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-add-endpoint',
@@ -12,7 +13,8 @@ import {allowedEnvironmant } from 'src/app/classes/Vaildators';
 })
 export class AddEndpointComponent implements OnInit {
 
-  constructor(private fb : FormBuilder, public dialogRef: MatDialogRef<AddEndpointComponent>, private endpointService : EndpointServiceService) { }
+  constructor(private fb : FormBuilder, public dialogRef: MatDialogRef<AddEndpointComponent>, private endpointService : EndpointServiceService,
+    private _snackBar: MatSnackBar) { }
 
   ngOnInit() {
   }
@@ -33,8 +35,24 @@ export class AddEndpointComponent implements OnInit {
     if(response.status = '200'){
       window.location.reload();
      }
-  })
+  },
+  (error) => {                              //Error callback
+    console.log(error);
+    if(error.status = '409'){
+      this.openSnackBar('Endpoint name: ' + this.endpoint.endpoint_name + ' already exists' , 'Close', 'red-snackbar');
+    }
+  }
+  )
 
+  }
+
+  openSnackBar(message: string, action: string, className: string) {
+    this._snackBar.open(message, action, {
+      duration: 4000,
+      verticalPosition: 'top',
+      horizontalPosition: 'left',
+      panelClass: [className]
+    });
   }
 
   

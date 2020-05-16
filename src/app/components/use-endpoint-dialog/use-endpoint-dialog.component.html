@@ -3,11 +3,6 @@
 <div mat-dialog-content style="height: 250">
     <form [formGroup] = "useEndpointForm" class="example-form" (ngSubmit)="useEndpoint()">
     <mat-form-field class="example-form" [formGroup] = "useEndpointForm">
-      <mat-label>User Name</mat-label>
-      <input matInput formControlName="user" />
-      <mat-error *ngIf="useEndpointForm.get('user').errors?.required">Username is required</mat-error>
-    </mat-form-field>
-    <mat-form-field class="example-form" [formGroup] = "useEndpointForm">
         <mat-label>Using For</mat-label>
         <input matInput formControlName="using_for" />
         <mat-error *ngIf="useEndpointForm.get('using_for').errors?.required">Using for is required</mat-error>

@@ -11,6 +11,7 @@ import { MarkEndpointGoodComponent } from '../mark-endpoint-good/mark-endpoint-g
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-endpoint-data',
@@ -21,23 +22,32 @@ export class EndpointDataComponent implements OnInit {
 
   constructor(private endpointService : EndpointServiceService, public dialog: MatDialog, private router: Router,
     private cookie : CookieService,
-    private localStorageService: LocalStorageService) { }
+    private localStorageService: LocalStorageService, private _snackBar: MatSnackBar) { }
   endpoints : Endpoint[];
   masterEndpoints : Endpoint[] = [];
   itEndpoints : Endpoint[] = []; 
+
+  current_user : string;
  
   ngOnInit() {
     this.endpointService.getAllEndpoints()
     .subscribe(response => {
-      this.endpoints = response;
-      this.endpoints.forEach(value => {
+      this.current_user = this.localStorageService.getLocalStroageData("username");
+      response.body.forEach(value => {
         if(value.environment == "qa-master"){
           this.masterEndpoints.push(value);
         } else if(value.environment == "qa-it"){
           this.itEndpoints.push(value);
         }
       })
-      })
+      },
+      (error) => {                              //Error callback
+        console.log(error);
+        if(error.status = '0'){
+          this.router.navigateByUrl('login');
+        }
+      }
+      )
   }
 
   addEndpoint(): void {
@@ -86,7 +96,8 @@ export class EndpointDataComponent implements OnInit {
     }
   }
 
-  releaseEndpoint(endpoint_name : string, endpoint_id : number): void {
+  releaseEndpoint(endpoint_name : string, endpoint_id : number, occupied_by : string): void {
+    if(occupied_by == this.current_user){
     const dialogRef = this.dialog.open(ReleaseEndpointDialogComponent, {
      width: '400px',
      data: {endpoint_name: endpoint_name, endpoint_id : endpoint_id}
@@ -95,6 +106,9 @@ export class EndpointDataComponent implements OnInit {
    dialogRef.afterClosed().subscribe(result => {
     console.log('The dialog was closed');
   });
+} else {
+  this.openSnackBar('Endpoint must be released by user who occupied it.', 'Close', 'red-snackbar');
+}
   }
 
   updateEndpointCondition(): void {
@@ -124,19 +138,19 @@ export class EndpointDataComponent implements OnInit {
     let myStyles;
      if(isBad){
       myStyles = {
-        'background-color': '#FF9800',
+        'background-color': '#ff0000',
         //'background-image': 'linear-gradient(316deg, #f42b03 0%, #ffbe0b 74%)'
       }
      }else {
     if(isOccupied){
       myStyles = {
-        'background-color': '#F44336',
-        'background-image': 'linear-gradient(315deg, #ff7878 0%, #ff0000 74%)'
+        'background-color': '#FFA500',
+       // 'background-image': 'linear-gradient(315deg, #ff7878 0%, #ff0000 74%)'
       }
     } else {
       myStyles = {
-        'background-color': '#f8ef42',
-        'background-image': 'linear-gradient(315deg, #f8ef42 0%, #0fd64f 74%)'
+        'background-color': '#75FF33',
+      //  'background-image': 'linear-gradient(315deg, #f8ef42 0%, #0fd64f 74%)'
       }
     }
   }
@@ -150,5 +164,13 @@ export class EndpointDataComponent implements OnInit {
     this.router.navigateByUrl('login');
   }
   
+  openSnackBar(message: string, action: string, className: string) {
+    this._snackBar.open(message, action, {
+      duration: 4000,
+      verticalPosition: 'top',
+      horizontalPosition: 'left',
+      panelClass: [className]
+    });
+  }
 
 }

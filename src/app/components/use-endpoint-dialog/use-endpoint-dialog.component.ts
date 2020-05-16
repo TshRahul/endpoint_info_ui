@@ -5,6 +5,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Endpoint } from 'src/app/classes/endpoint';
 import { EndpointServiceService } from 'src/app/services/endpoint-service.service';
 import { allowedEnvironmant } from 'src/app/classes/Vaildators';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
 
 @Component({
   selector: 'app-use-endpoint-dialog',
@@ -14,7 +15,7 @@ import { allowedEnvironmant } from 'src/app/classes/Vaildators';
 export class UseEndpointDialogComponent implements OnInit {
 
   constructor(private fb : FormBuilder, public dialogRef: MatDialogRef<AddEndpointComponent>, @Inject(MAT_DIALOG_DATA) public data: DialogData,
-  private endpointService : EndpointServiceService) { }
+  private endpointService : EndpointServiceService, private localStorageService: LocalStorageService) { }
 
   ngOnInit() {
   }
@@ -24,7 +25,6 @@ export class UseEndpointDialogComponent implements OnInit {
   endpoint = new Endpoint();
 
   useEndpointForm = this.fb.group({
-    user : ['', Validators.required],
     using_for : ['', Validators.required],
     used_environment : ['', [Validators.required, allowedEnvironmant]]
     
@@ -35,7 +35,7 @@ export class UseEndpointDialogComponent implements OnInit {
   useEndpoint(){
     this.endpoint.endpoint_id = this.data.endpoint_id;
     this.endpoint.endpoint_name = this.data.endpoint_name;
-    this.endpoint.occupied_by = this.useEndpointForm.get("user").value;
+    this.endpoint.occupied_by = this.localStorageService.getLocalStroageData("username");
     this.endpoint.occupied_for = this.useEndpointForm.get("using_for").value;
     this.endpoint.environment = this.useEndpointForm.get("used_environment").value;
     this.endpoint.is_occupied = true;

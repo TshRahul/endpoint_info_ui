@@ -42,7 +42,6 @@ export class LoginComponent implements OnInit {
 
     this.authService.authenticateUser(this.authenticate)
     .subscribe((response) => {
-      console.log(response);
       this.showProgressBar = true;
       if(response.status = '200'){
         this.cookie.set('jwt', response.body.jwt);
@@ -73,7 +72,7 @@ export class LoginComponent implements OnInit {
 
   openSnackBar(message: string, action: string, className: string) {
     this._snackBar.open(message, action, {
-      duration: 5000,
+      duration: 3000,
       verticalPosition: 'top',
       horizontalPosition: 'left',
       panelClass: [className]

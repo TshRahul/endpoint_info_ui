@@ -27,4 +27,8 @@ public removeromStroage(STORAGE_KEY : string){
 
 this.storage.remove(STORAGE_KEY);
 }
+
+public getLocalStroageData(STORAGE_KEY : string){
+  return this.storage.get(STORAGE_KEY);
+}
 }

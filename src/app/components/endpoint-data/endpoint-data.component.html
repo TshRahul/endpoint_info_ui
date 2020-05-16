@@ -18,17 +18,24 @@
       (cdkDropListDropped)="drop($event, 'qaMaster')">
       <div class="example-box" *ngFor="let endpoint of masterEndpoints" [ngStyle]="getBackgroundColor(endpoint.bad, endpoint.is_occupied)" cdkDrag>
         <div *ngIf="endpoint.bad; else elseBlock1">
-          <span class="hand_cursor" matTooltip="Endpoint is bad">
+          <span class="hand_cursor" matTooltip="Endpoint is bad" matTooltipPosition="right">
             <a class="endpoint-opers" mat-button (click)="markEndpointGood(endpoint.endpoint_name, endpoint.endpoint_id)">{{endpoint.endpoint_name}}</a>
           </span>
         </div>
         <ng-template #elseBlock1>
-        <div *ngIf="!endpoint.is_occupied; else elseBlock2"><span class="hand_cursor" matTooltip="Endpoint is free">
+        <div *ngIf="!endpoint.is_occupied; else elseBlock2"><span class="hand_cursor" matTooltip="Endpoint is free" matTooltipPosition="right">
           <a class="endpoint-opers" mat-button (click)="useEndpoint(endpoint.endpoint_name, endpoint.endpoint_id)">{{endpoint.endpoint_name}}</a></span></div>
-          <ng-template #elseBlock2><span class="hand_cursor" matTooltip="User By: {{endpoint.occupied_by}}, User For: {{endpoint.occupied_for}}">
-            <a class="endpoint-opers" mat-button (click)="releaseEndpoint(endpoint.endpoint_name, endpoint.endpoint_id)">{{endpoint.endpoint_name}}</a></span>
+          <ng-template #elseBlock2 ><span class="hand_cursor">
+            <a class="endpoint-opers" mat-button matTooltip="Endpoint is occupied" matTooltipPosition="right" (click)="releaseEndpoint(endpoint.endpoint_name, endpoint.endpoint_id, endpoint.occupied_by)">{{endpoint.endpoint_name}}</a>
+            <br />
+            <span>User: <b><i>{{endpoint.occupied_by}}</i></b> </span>
+            <br />
+            <span>Used For: {{endpoint.occupied_for}}</span>
+          </span>
           </ng-template>
         </ng-template>
+        <img src="assets\images\controller.png" width="55"
+              height="70">
     </div>
     </div>
   </div>
@@ -45,16 +52,23 @@
       (cdkDropListDropped)="drop($event, 'qaIt')">
       <div class="example-box" *ngFor="let endpoint of itEndpoints" [ngStyle]="getBackgroundColor(endpoint.bad,endpoint.is_occupied)" cdkDrag>
         <div *ngIf="endpoint.bad; else elseBlock1">
-          <span class="hand_cursor" matTooltip="Endpoint is bad">
-            <a class="endpoint-opers" class="endpoint-opers" mat-button (click)="markEndpointGood(endpoint.endpoint_name, endpoint.endpoint_id)">{{endpoint.endpoint_name}}</a>
+          <span class="hand_cursor" matTooltip="Endpoint is bad" matTooltipPosition="right">
+            <a class="endpoint-opers" mat-button (click)="markEndpointGood(endpoint.endpoint_name, endpoint.endpoint_id)">{{endpoint.endpoint_name}}</a>
           </span>
         </div>
         <ng-template #elseBlock1>
-        <div *ngIf="!endpoint.is_occupied; else elseBlock"><span class="hand_cursor" matTooltip="Endpoint is free">
+        <div *ngIf="!endpoint.is_occupied; else elseBlock"><span class="hand_cursor" matTooltip="Endpoint is free" matTooltipPosition="right">
           <a class="endpoint-opers" mat-button (click)="useEndpoint(endpoint.endpoint_name, endpoint.endpoint_id)">{{endpoint.endpoint_name}}</a></span></div>
-          <ng-template #elseBlock><span class="hand_cursor" matTooltip="User By: {{endpoint.occupied_by}}, User For: {{endpoint.occupied_for}}">
-            <a class="endpoint-opers" mat-button (click)="releaseEndpoint(endpoint.endpoint_name, endpoint.endpoint_id)">{{endpoint.endpoint_name}}</a></span>
+          <ng-template #elseBlock><span class="hand_cursor">
+            <a class="endpoint-opers" mat-button matTooltip="Endpoint is occupied" matTooltipPosition="right" (click)="releaseEndpoint(endpoint.endpoint_name, endpoint.endpoint_id, endpoint.occupied_by)">{{endpoint.endpoint_name}}</a>
+            <br />
+            <span>User: <b><i>{{endpoint.occupied_by}}</i></b> </span>
+            <br />
+            <span>Used For: {{endpoint.occupied_for}}</span>
+          </span>
           </ng-template>
         </ng-template>
+        <img src="assets\images\controller.png" width="55"
+              height="70">
            </div>
   </div>

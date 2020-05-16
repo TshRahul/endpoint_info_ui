@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { UserServiceService } from 'src/app/services/user-service.service';
 import { User } from 'src/app/classes/User';
 import { ErrorStateMatcher } from '@angular/material/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -20,7 +21,8 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class RegisterComponent implements OnInit {
 
-  constructor(private fb : FormBuilder, private userService : UserServiceService, private router: Router) { }
+  constructor(private fb : FormBuilder, private userService : UserServiceService, private router: Router,
+    private _snackBar: MatSnackBar) { }
 
   Roles : any =  ['Admin', 'User'];
 
@@ -59,9 +61,25 @@ registrationForm = this.fb.group({
       if(response.status = '200'){
        this.isRegistered = true;
       }
+      this.openSnackBar('User created successfully', 'Close', 'green-snackbar');
       this.router.navigateByUrl('login');
+    },
+    (error) => {                              //Error callback
+      console.log(error);
+      // if(error.status = '403'){
+      this.openSnackBar('User creation failed', 'Close', 'red-snackbar');
+   //   }
     }
       )
   } 
+
+  openSnackBar(message: string, action: string, className: string) {
+    this._snackBar.open(message, action, {
+      duration: 5000,
+      verticalPosition: 'top',
+      horizontalPosition: 'left',
+      panelClass: [className]
+    });
+  }
 
 }

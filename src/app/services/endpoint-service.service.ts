@@ -12,11 +12,11 @@ export class EndpointServiceService {
   }
 
   getAllEndpoints() : Observable<any> {
-      return this.httpClient.get("http://localhost:9091/api/endpoint");
+      return this.httpClient.get("http://localhost:9091/api/endpoint" , { observe: 'response' });
   }
 
   addEndpoint(endpoint : Endpoint) : Observable<any> {
-    return this.httpClient.post("http://localhost:9091/api/endpoint", endpoint);
+    return this.httpClient.post("http://localhost:9091/api/endpoint", endpoint, { observe: 'response' });
   }
 
   updateEndpointInfo(endpoint : Endpoint) : Observable<any> {

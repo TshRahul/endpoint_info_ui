@@ -48,6 +48,7 @@ export class LoginComponent implements OnInit {
         this.user = response.body.user; 
         this.localStorageService.storeOnLocalStorage("username", this.user.username);
         this.localStorageService.storeOnLocalStorage("email", this.user.email);
+        this.localStorageService.storeOnLocalStorage("role", this.user.roles)
         this.router.navigateByUrl('endpoint_data');
       }
     },

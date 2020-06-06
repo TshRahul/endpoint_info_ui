@@ -23,6 +23,8 @@ import { AuthInterceptor } from './classes/AuthInterceptor';
 import { StorageServiceModule } from 'ngx-webstorage-service';
 import { LocalStorageService } from './services/local-storage.service';
 import { SnakeBarComponent } from './components/snake-bar/snake-bar.component';
+import { HashLocationStrategy, LocationStrategy  } from '@angular/common';
+import { DeleteEndpointComponent } from './components/delete-endpoint/delete-endpoint.component';
 
 
 @NgModule({
@@ -37,7 +39,8 @@ import { SnakeBarComponent } from './components/snake-bar/snake-bar.component';
     MarkEndpointGoodComponent,
     RegisterComponent,
     LoginComponent,
-    SnakeBarComponent
+    SnakeBarComponent,
+    DeleteEndpointComponent
   ],
   imports: [
     BrowserModule,
@@ -54,7 +57,7 @@ import { SnakeBarComponent } from './components/snake-bar/snake-bar.component';
     provide : HTTP_INTERCEPTORS,
     useClass: AuthInterceptor,
     multi   : true
-  }],
+  }, {provide : LocationStrategy , useClass: HashLocationStrategy}],
   bootstrap: [AppComponent],
   entryComponents: [AddEndpointComponent, UseEndpointDialogComponent, ReleaseEndpointDialogComponent, 
     MarkEndpointBadComponent, MarkEndpointGoodComponent, CookieService, LocalStorageService],

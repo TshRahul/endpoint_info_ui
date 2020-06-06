@@ -78,7 +78,7 @@ registrationForm = this.fb.group({
       duration: 5000,
       verticalPosition: 'top',
       horizontalPosition: 'left',
-      panelClass: [className]
+      panelClass: ['style-succes']
     });
   }
 

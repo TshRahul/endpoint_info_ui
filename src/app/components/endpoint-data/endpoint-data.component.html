@@ -1,10 +1,15 @@
 <mat-toolbar color="primary" class="docs-navbar-header">
     <span>Endpoint Information</span>
     <span class="example-spacer"></span>
-    <button mat-button (click)="addEndpoint()">Add Endpoint</button>
-    <button mat-button (click)="updateEndpointCondition()">Mark Endpoint Bad</button>
+    <button mat-button (click)="addEndpoint()" [disabled] = "not_admin">Add Endpoint</button>
+    <button mat-button (click)="updateEndpointCondition()" [disabled] = "not_admin">Mark Endpoint Bad</button>
+    <button mat-button (click)="deleteEndpoint()" [disabled] = "not_admin" matTooltip="Delete Endpoint"><span class="material-icons">
+    
+      delete
+      </span></button>
     <button mat-button (click)="logout()">Log Out</button>
   </mat-toolbar>
+<div>
 
 <div class="example-container">
     <mat-card class = "header-card"> <h1 class="mat-display-1">QA Master</h1></mat-card>
@@ -39,7 +44,7 @@
     </div>
     </div>
   </div>
-  
+
   <div class="example-container">
     <mat-card class = "header-card"> <h1 class="mat-display-1">QA It</h1></mat-card>
     <br />  
@@ -72,3 +77,4 @@
               height="70">
            </div>
   </div>
+</div>

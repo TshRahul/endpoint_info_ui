@@ -11,7 +11,8 @@ import { MarkEndpointGoodComponent } from '../mark-endpoint-good/mark-endpoint-g
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';import { DeleteEndpointComponent } from '../delete-endpoint/delete-endpoint.component';
+  ``  
 
 @Component({
   selector: 'app-endpoint-data',
@@ -28,11 +29,16 @@ export class EndpointDataComponent implements OnInit {
   itEndpoints : Endpoint[] = []; 
 
   current_user : string;
- 
+  user_role : string;
+  not_admin : boolean;
   ngOnInit() {
     this.endpointService.getAllEndpoints()
     .subscribe(response => {
       this.current_user = this.localStorageService.getLocalStroageData("username");
+      this.user_role = this.localStorageService.getLocalStroageData("role");
+      if(this.user_role == "User"){
+        this.not_admin = true;
+      }
       response.body.forEach(value => {
         if(value.environment == "qa-master"){
           this.masterEndpoints.push(value);
@@ -77,6 +83,9 @@ export class EndpointDataComponent implements OnInit {
   endpoint = new Endpoint();
 
   drop(event: CdkDragDrop<Endpoint[]>, env : string) {  
+    if(this.not_admin == true){
+      return;
+    }
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
@@ -173,4 +182,13 @@ export class EndpointDataComponent implements OnInit {
     });
   }
 
+  deleteEndpoint(): void {
+    const dialogRef = this.dialog.open(DeleteEndpointComponent, {
+     width: '400px'
+   });
+
+   dialogRef.afterClosed().subscribe(result => {
+    console.log('The dialog was closed');
+  });
+  }
 }

@@ -63,6 +63,11 @@
               <!-- <div *ngIf="registrationForm.get('lastname').invalid && 
               registrationForm.get('lastname').touched">  -->
               <mat-error *ngIf="registrationForm.get('password').errors?.required">Password is required</mat-error>
+              <mat-error *ngIf="registrationForm.get('password').errors?.pattern" matTooltip="1. At least 8 characters in length,
+              2. Lowercase letters,
+              3. Uppercase letters,
+              4. Numbers,
+              5. Special characters">Please select valid password!! Hover Over Me</mat-error>
               <!-- </div> -->
             </mat-form-field>
     

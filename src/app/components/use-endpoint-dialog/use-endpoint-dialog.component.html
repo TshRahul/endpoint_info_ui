@@ -14,9 +14,9 @@
         <mat-error *ngIf="useEndpointForm.get('used_environment').invalid && useEndpointForm.get('used_environment').errors?.validEnv">The environment can only be qa-it/qa-master.</mat-error>
       </mat-form-field> -->
       <br />
-      <mat-radio-group class="example-radio-group" formControlName="used_environment">
+      <!-- <mat-radio-group class="example-radio-group" formControlName="used_environment">
         <mat-radio-button class="example-radio-button" *ngFor="let env of envs" [value]="env">{{env}}</mat-radio-button>
-      </mat-radio-group>
+      </mat-radio-group> -->
 
   <div mat-dialog-actions>
     <button mat-button type="button" [mat-dialog-close] color="primary">Cancel</button> 

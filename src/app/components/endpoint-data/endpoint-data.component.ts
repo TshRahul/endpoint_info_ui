@@ -67,10 +67,10 @@ export class EndpointDataComponent implements OnInit {
     });
   }
 
-  useEndpoint(endpoint_name : string, endpoint_id : number): void {
+  useEndpoint(endpoint_name : string, endpoint_id : number, environment : string): void {
     const dialogRef = this.dialog.open(UseEndpointDialogComponent, {
      width: '350px',
-     data: {endpoint_name: endpoint_name, endpoint_id : endpoint_id}
+     data: {endpoint_name: endpoint_name, endpoint_id : endpoint_id, environment : environment}
    });
 
    dialogRef.afterClosed().subscribe(result => {
@@ -131,6 +131,9 @@ export class EndpointDataComponent implements OnInit {
   }
 
   markEndpointGood(endpoint_name : string, endpoint_id : number): void {
+    if(this.not_admin == true){
+      return;
+    }
     const dialogRef = this.dialog.open(MarkEndpointGoodComponent, {
      width: '350px',
      data: {endpoint_name: endpoint_name, endpoint_id : endpoint_id}

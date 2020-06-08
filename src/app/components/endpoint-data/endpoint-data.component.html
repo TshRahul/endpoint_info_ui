@@ -1,9 +1,9 @@
 <mat-toolbar color="primary" class="docs-navbar-header">
     <span>Endpoint Information</span>
     <span class="example-spacer"></span>
-    <button mat-button (click)="addEndpoint()" [disabled] = "not_admin">Add Endpoint</button>
-    <button mat-button (click)="updateEndpointCondition()" [disabled] = "not_admin">Mark Endpoint Bad</button>
-    <button mat-button (click)="deleteEndpoint()" [disabled] = "not_admin" matTooltip="Delete Endpoint"><span class="material-icons">
+    <button mat-button (click)="addEndpoint()" *ngIf = "!not_admin">Add Endpoint</button>
+    <button mat-button (click)="updateEndpointCondition()" *ngIf = "!not_admin">Mark Endpoint Bad</button>
+    <button mat-button (click)="deleteEndpoint()" *ngIf = "!not_admin" matTooltip="Delete Endpoint"><span class="material-icons">
     
       delete
       </span></button>
@@ -29,7 +29,7 @@
         </div>
         <ng-template #elseBlock1>
         <div *ngIf="!endpoint.is_occupied; else elseBlock2"><span class="hand_cursor" matTooltip="Endpoint is free" matTooltipPosition="right">
-          <a class="endpoint-opers" mat-button (click)="useEndpoint(endpoint.endpoint_name, endpoint.endpoint_id)">{{endpoint.endpoint_name}}</a></span></div>
+          <a class="endpoint-opers" mat-button (click)="useEndpoint(endpoint.endpoint_name, endpoint.endpoint_id, endpoint.environment)">{{endpoint.endpoint_name}}</a></span></div>
           <ng-template #elseBlock2 ><span class="hand_cursor">
             <a class="endpoint-opers" mat-button matTooltip="Endpoint is occupied" matTooltipPosition="right" (click)="releaseEndpoint(endpoint.endpoint_name, endpoint.endpoint_id, endpoint.occupied_by)">{{endpoint.endpoint_name}}</a>
             <br />
@@ -63,7 +63,7 @@
         </div>
         <ng-template #elseBlock1>
         <div *ngIf="!endpoint.is_occupied; else elseBlock"><span class="hand_cursor" matTooltip="Endpoint is free" matTooltipPosition="right">
-          <a class="endpoint-opers" mat-button (click)="useEndpoint(endpoint.endpoint_name, endpoint.endpoint_id)">{{endpoint.endpoint_name}}</a></span></div>
+          <a class="endpoint-opers" mat-button (click)="useEndpoint(endpoint.endpoint_name, endpoint.endpoint_id, endpoint.environment)">{{endpoint.endpoint_name}}</a></span></div>
           <ng-template #elseBlock><span class="hand_cursor">
             <a class="endpoint-opers" mat-button matTooltip="Endpoint is occupied" matTooltipPosition="right" (click)="releaseEndpoint(endpoint.endpoint_name, endpoint.endpoint_id, endpoint.occupied_by)">{{endpoint.endpoint_name}}</a>
             <br />

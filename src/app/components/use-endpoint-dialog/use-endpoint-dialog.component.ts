@@ -25,8 +25,8 @@ export class UseEndpointDialogComponent implements OnInit {
   endpoint = new Endpoint();
 
   useEndpointForm = this.fb.group({
-    using_for : ['', Validators.required],
-    used_environment : ['', [Validators.required, allowedEnvironmant]]
+    using_for : ['', Validators.required]
+  //  used_environment : ['', [Validators.required, allowedEnvironmant]]
     
   })
 
@@ -37,7 +37,8 @@ export class UseEndpointDialogComponent implements OnInit {
     this.endpoint.endpoint_name = this.data.endpoint_name;
     this.endpoint.occupied_by = this.localStorageService.getLocalStroageData("username");
     this.endpoint.occupied_for = this.useEndpointForm.get("using_for").value;
-    this.endpoint.environment = this.useEndpointForm.get("used_environment").value;
+  //  this.endpoint.environment = this.useEndpointForm.get("used_environment").value;
+    this.endpoint.environment = this.data.environment;
     this.endpoint.is_occupied = true;
     this.endpointService.updateEndpointInfo(this.endpoint)
     .subscribe(response => {
@@ -53,4 +54,5 @@ export class UseEndpointDialogComponent implements OnInit {
 export interface DialogData {
   endpoint_name: string
   endpoint_id : number;
+  environment : string;
  }
